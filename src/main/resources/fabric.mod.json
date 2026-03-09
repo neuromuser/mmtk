@@ -1,0 +1,27 @@
+{
+	"schemaVersion": 1,
+	"id": "mmtk",
+	"version": "${version}",
+	"name": "MMTK",
+	"description": "MapMakerToolKit",
+	"authors": [
+		"Neuromuser"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
+	"icon": "icon.png",
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+	},
+	"mixins": [
+		"bta_autostack.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=${fabricloader}",
+		"minecraft": "*",
+		"java": ">=${java}"
+	}
+}
