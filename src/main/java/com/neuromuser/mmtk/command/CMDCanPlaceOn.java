@@ -10,7 +10,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.command.CommandSource;
 import net.minecraft.core.net.command.helpers.BlockInput;
 
-public class CMDCanBreak implements Command<CommandSource> {
+public class CMDCanPlaceOn implements Command<CommandSource> {
 
 	@Override
 	public int run(CommandContext<CommandSource> context) {
@@ -36,11 +36,11 @@ public class CMDCanBreak implements Command<CommandSource> {
 		String translationKey = block.getKey();
 
 		CompoundTag tag = heldItem.getData();
-		if (!tag.containsKey("CanBreak")) {
-			tag.put("CanBreak", new ListTag());
+		if (!tag.containsKey("CanPlaceOn")) {
+			tag.put("CanPlaceOn", new ListTag());
 		}
 
-		ListTag canBreakList = tag.getList("CanBreak");
+		ListTag canBreakList = tag.getList("CanPlaceOn");
 
 		boolean exists = false;
 		for (int i = 0; i < canBreakList.tagCount(); i++) {
@@ -56,7 +56,7 @@ public class CMDCanBreak implements Command<CommandSource> {
 			blockEntry.putString("blockKey", translationKey);
 
 			canBreakList.addTag(blockEntry);
-			source.sendMessage("Item can now break: " + new ItemStack(block).getDisplayName());
+			source.sendMessage("Block can now be placed on: " + new ItemStack(block).getDisplayName());
 		}
 
 		return 1;

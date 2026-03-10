@@ -22,13 +22,21 @@ public class ModCommandRegistry implements CommandManager.CommandRegistry {
 		ArgumentBuilderLiteral<CommandSource> unbreakableSub = ArgumentBuilderLiteral.<CommandSource>literal("unbreakable")
 			.executes(new CMDUnbreakable());
 
-		ArgumentBuilderRequired<CommandSource, BlockInput> blockArg =
+		ArgumentBuilderRequired<CommandSource, BlockInput> blockbreakArg =
 			ArgumentBuilderRequired.<CommandSource, BlockInput>argument("block", ArgumentTypeBlock.block())
 				.executes(new CMDCanBreak());
 
+		ArgumentBuilderLiteral<CommandSource> canPlaceOnSub =
+			ArgumentBuilderLiteral.literal("canplaceon");
+
+		ArgumentBuilderRequired<CommandSource, BlockInput> blockplaceArg =
+			ArgumentBuilderRequired.<CommandSource, BlockInput>argument("block", ArgumentTypeBlock.block())
+				.executes(new CMDCanPlaceOn());
+
 		mmtkBase.requires(CommandSource::hasAdmin)
 			.then(unbreakableSub)
-			.then(canBreakSub.then(blockArg));
+			.then(canBreakSub.then(blockbreakArg))
+			.then(canPlaceOnSub.then(blockplaceArg));
 
 
 		dispatcher.register(mmtkBase);
