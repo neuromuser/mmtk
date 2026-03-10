@@ -1,11 +1,13 @@
 package com.neuromuser.mmtk.mixin;
 
+import com.neuromuser.mmtk.MMTKGameRules;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.gamemode.Gamemode;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
@@ -17,6 +19,15 @@ public class PlayerMixin {
 
 		if (self.getGamemode() == Gamemode.adventure) {
 			cir.setReturnValue(1.0f);
+		}
+	}
+
+	@Inject(method = "causeFallDamage", at = @At("HEAD"), cancellable = true)
+	private void mmtk$handleFallDamage(float distance, CallbackInfo ci) {
+		Player self = (Player)(Object)this;
+
+		if (self.world != null && !MMTKGameRules.isFallDamageEnabled(self.world)) {
+			ci.cancel();
 		}
 	}
 }

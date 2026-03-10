@@ -15,6 +15,8 @@ public class MMTK implements ModInitializer, ItemInitEntrypoint {
 	public void onInitialize() {
 		CommandManager.registerCommand(new ModCommandRegistry());
 
+		MMTKGameRules.register();
+
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			LOGGER.info("Saving global rules...");
 			GlobalRules.saveData();
