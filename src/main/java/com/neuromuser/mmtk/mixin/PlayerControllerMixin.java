@@ -48,14 +48,12 @@ public class PlayerControllerMixin {
 		String targetKey = targetBlock.getKey();
 		System.out.println("[MMTK-Debug] Attempting to break: " + targetKey + " with " + heldItem.getDisplayName());
 
-		// Check Global Rules
 		if (GlobalRules.canDoGlobal(heldItem.getItem(), targetKey, true)) {
 			System.out.println("[MMTK-Debug] Break Allowed: Global Rule found");
 			return true;
 		}
 
-		// Check NBT
-		if (heldItem.getData() != null && heldItem.getData().containsKey("CanBreak")) {
+		if (heldItem.getData().containsKey("CanBreak")) {
 			ListTag list = heldItem.getData().getList("CanBreak");
 			System.out.println("[MMTK-Debug] Checking " + list.tagCount() + " entries in CanBreak NBT");
 
@@ -79,14 +77,8 @@ public class PlayerControllerMixin {
 	@Inject(method = "startDestroyBlock", at = @At("HEAD"), cancellable = true)
 	private void mmtk_forceAdventureBreak(int x, int y, int z, Side side, double xHit, double yHit, boolean repeat, CallbackInfo ci) {
 		if (mc.thePlayer.getGamemode() == Gamemode.adventure) {
-			// If our MMTK logic says we CAN break it, we let the method continue
-			// normally, but we might need to bypass the 'heldObject == null' check
-			// in the original source.
 			if (canPlayerBreakBlock(x, y, z)) {
-				// We do nothing here to let the original code run,
-				// OR we manually trigger the destroy logic if the base game is too stubborn.
 			} else {
-				// If MMTK says NO, we definitely stop it.
 				ci.cancel();
 			}
 		}
@@ -108,7 +100,7 @@ public class PlayerControllerMixin {
 
 		if (GlobalRules.canDoGlobal(heldItem.getItem(), targetKey, false)) return true;
 
-		if (heldItem.getData() != null && heldItem.getData().containsKey("CanPlaceOn")) {
+		if (heldItem.getData().containsKey("CanPlaceOn")) {
 			ListTag list = heldItem.getData().getList("CanPlaceOn");
 			for (int i = 0; i < list.tagCount(); i++) {
 				Tag<?> tag = list.tagAt(i);
@@ -129,14 +121,4 @@ public class PlayerControllerMixin {
 	private void mmtk_stopPlaceBlock(Player player, World world, ItemStack itemstack, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir) {
 		if (!canPlayerPlaceBlockOn(blockX, blockY, blockZ, itemstack)) cir.setReturnValue(false);
 	}
-
-//	@Inject(method = "destroyBlock", at = @At("HEAD"), cancellable = true)
-//	private void mmtk_stopInstantDestroy(int x, int y, int z, Side side, Player player, CallbackInfoReturnable<Boolean> cir) {
-//		cir.setReturnValue(true);
-////		if (!canPlayerBreakBlock(x, y, z)) {
-////			cir.setReturnValue(false);
-////		}
-//}
-
-
 }
