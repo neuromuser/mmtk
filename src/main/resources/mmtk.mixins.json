@@ -6,8 +6,10 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "GamemodeMixin",
     "ItemStackMixin",
-    "ItemTooltipMixin"
+    "ItemTooltipMixin",
+    "PlayerMixin"
   ],
   "client": [
     "PlayerControllerMixin"

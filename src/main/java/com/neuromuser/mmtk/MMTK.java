@@ -13,10 +13,13 @@ public class MMTK implements ModInitializer, ItemInitEntrypoint {
 
 	@Override
 	public void onInitialize() {
-
 		CommandManager.registerCommand(new ModCommandRegistry());
-	}
 
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			LOGGER.info("Saving global rules...");
+			GlobalRules.saveData();
+		}));
+	}
 
 	@Override
 	public void afterItemInit() {}
