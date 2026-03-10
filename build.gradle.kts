@@ -21,6 +21,7 @@ repositories {
     maven("https://maven.fabricmc.net/") { name = "Fabric" }
     maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
     maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
+	maven ( url = "https://jitpack.io" ) { name = "Jitpack" }
     ivy("https://github.com/Better-than-Adventure") {
         patternLayout { artifact("[organisation]/releases/download/[revision]/[module]-bta-[revision].jar") }
         metadataSources { artifact() }
@@ -47,7 +48,7 @@ dependencies {
 
 	runtimeOnly(libs.clientJar)
 	implementation(libs.loader)
-	// If you do not need Halplibe you can comment out or delete this line.
+
 	implementation(libs.halplibe)
 	implementation(libs.modMenu)
 	implementation(libs.legacyLwjgl)

@@ -15,13 +15,26 @@
 	"license": "MIT",
 	"environment": "*",
 	"entrypoints": {
-	},
+		"main": [
+			"com.neuromuser.mmtk.MMTK"
+		],
+		"client": [
+			"com.neuromuser.mmtk.MMTKClient"
+		],
+		"halplibe_items": [
+			"com.neuromuser.mmtk.MMTK"
+		],
+		"halplibe_blocks": [
+			"com.neuromuser.mmtk.MMTK"
+		]
+},
 	"mixins": [
-		"bta_autostack.mixins.json"
+		"mmtk.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=${fabricloader}",
 		"minecraft": "*",
-		"java": ">=${java}"
+		"java": ">=${java}",
+		"halplibe": "*"
 	}
 }

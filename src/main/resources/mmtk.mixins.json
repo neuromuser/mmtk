@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.neuromuser.mmtk.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "ItemStackMixin"
+  ],
+  "client": [
+    "PlayerControllerMixin"
+  ]
+}
